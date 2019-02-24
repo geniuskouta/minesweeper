@@ -1,35 +1,39 @@
 const generatePlayerBoard = (numOfRows, numOfColumns) => {
-        const board = [];
-        for (let i =0; i < numOfRows; i++){
-            const row = [];
-            for(let j=0; j < numOfColumns; j++){
-                row.push(' ');
-            }
-            board.push(row);
-        }
-        return board;
+  const board = [];
+
+  for (let rowIndex = 0; rowIndex < numOfRows; rowIndex++) {
+    const row = [];
+    for (let columnIndex = 0; columnIndex < numOfColumns; columnIndex++) {
+      row.push(' ');
+    }
+    board.push(row);
+  }
+  return board;
 };
-const generateBombBoard = (numOfRows, numOfColumns, numOfBombs) =>{
-    const board = [];
-    for (let i =0; i < numOfRows; i++){
-        const row = [];
-        for(let j=0; j < numOfColumns; j++){
-            row.push(null);
-        }
-        board.push(row);
-    }
 
-    let numOfBombsPlaced = 0;
+const generateBombBoard = (numOfRows, numOfColumns, numOfBombs) => {
+  const board = [];
 
-    while (numOfBombsPlaced < numOfBombs) {
-        const randomRowIndex = Math.floor(Math.random() * numOfRows);
-        const randomColumnIndex = Math.floor(Math.random() * numOfColumns);
-        if(board [randomRowIndex][randomColumnIndex] !== 'B'){
-            board[randomRowIndex][randomColumnIndex] = 'B';
-            numOfBombsPlaced++;
-        }
+  for (let rowIndex = 0; rowIndex < numOfRows; rowIndex++) {
+    const row = [];
+    for (let columnIndex = 0; columnIndex < numOfColumns; columnIndex++) {
+      row.push(null);
     }
-    return board;
+    board.push(row);
+  }
+
+  let numberOfBombsPlaced = 0;
+
+  while (numberOfBombsPlaced < numOfBombs) {
+    const randomRowIndex = Math.floor(Math.random() * numOfRows);
+    const randomColumnIndex = Math.floor(Math.random() * numOfColumns);
+    if (board[randomRowIndex][randomColumnIndex] !== 'B') {
+      board[randomRowIndex][randomColumnIndex] = 'B';
+      numberOfBombsPlaced++;
+    }
+  }
+
+  return board;
 };
 
 const getNumOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
@@ -52,7 +56,7 @@ const getNumOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
     neighborOffsets.forEach(offset => {
     const neighborRowIndex = rowIndex + offset[0];
     const neighborColumnIndex = columnIndex + offset[1];
-    if(neighborOffsets >= 0 && neighborRowIndex < numOfRows &&
+    if(neighborRowIndex >= 0 && neighborRowIndex < numOfRows &&
         neighborColumnIndex >= 0 && neighborColumnIndex < numOfColumns){
         if(bombBoard[neighborRowIndex][neighborColumnIndex] === 'B'){
             numOfBombs++;
