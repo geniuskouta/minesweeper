@@ -87,3 +87,4 @@ printBoard(playerBoard);
 printBoard(bombBoard);
 flipTile(playerBoard, bombBoard, 0, 0);
 printBoard(playerBoard);
+
